@@ -1,0 +1,9 @@
+name: vMessages
+version: '${project.version}'
+main: com.daldude1.vmessages.Main
+api-version: 1.16
+authors: [ Daldude1 ]
+description: Full custom messaging plugin
+commands:
+  message:
+  reply:
