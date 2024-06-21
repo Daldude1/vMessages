@@ -1,6 +1,7 @@
 package com.daldude1.vmessages;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 public class ReplyCommand implements CommandExecutor {
 
-    private Main main;
+    private final Main main;
 
     public ReplyCommand(Main main) {
         this.main = main;
@@ -29,20 +30,29 @@ public class ReplyCommand implements CommandExecutor {
                     Player target = Bukkit.getPlayer(uuid);
                     if (target != null) {
                         StringBuilder builder = new StringBuilder();
-                        for (int i = 0; i < strings.length; i++) {
-                            builder.append(strings[i]).append(" ");
+                        for (String string : strings) {
+                            builder.append(string).append(" ");
                         }
 
-                        player.sendMessage("You -> " + target.getName() + ": " + builder);
-                        target.sendMessage(player.getName() + "-> You: " + builder);
+                        String send_msg = ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("send.user_send"))
+                                .replace("<user>", target.getName())
+                                .replace("<message>", builder);
+
+                        player.sendMessage(send_msg);
+
+                        String receive_msg = ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("send.user_receive"))
+                                .replace("<user>", player.getName())
+                                .replace("<message>", builder);
+
+                        target.sendMessage(receive_msg);
                     } else {
-                        player.sendMessage("La persona qué te envio un mensaje ya no está en linea");
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("errors.user_offline")));
                     }
                 } else {
-                    player.sendMessage("No te han enviado un mensaje");
+                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("errors.no_reply")));
                 }
             } else {
-                player.sendMessage("Necesitas agregar argumenteos");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("errors.arguments_error")));
             }
         }
 

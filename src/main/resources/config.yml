@@ -1,0 +1,8 @@
+errors:
+  arguments_error: "&c&lYOURSERVER &a-> &7You must add the user or the message."
+  user_offline: "&c&lYOURSERVER &a-> &7The user is offline."
+  no_reply: "&c&lYOURSERVER &a-> &7Nobody has sent you a message."
+
+send:
+  user_send: "&bYou &a-> &b<user>: &7<message>"
+  user_receive: "&b<user> &a-> &bYou: &7<message>"

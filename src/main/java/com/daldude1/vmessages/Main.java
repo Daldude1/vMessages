@@ -18,14 +18,17 @@ public final class Main extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        saveDefaultConfig();
+
         // Register commands
         getCommand("message").setExecutor(new MessageCommand(this));
         getCommand("reply").setExecutor(new ReplyCommand(this));
 
-        recentMessages = new HashMap<>();
-
         // Register events
         Bukkit.getPluginManager().registerEvents(this, this);
+
+        // Recent messages HashMap
+        recentMessages = new HashMap<>();
     }
 
     public HashMap<UUID, UUID> getRecentMessages() {
